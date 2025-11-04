@@ -1,7 +1,9 @@
 # IT Repair Hero Academy — Prompt Engineering for Beginners
 
-**Purpose:** This repository stores the **training content** for a beginner-friendly course on **prompt engineering**. To make learning practical and fun, the course uses **IT incident triage & support** as the running use case.  
-**Audience:** Anyone new to GenAI—students, educators, and working professionals.  
+**Purpose:** This repository stores the **training content** for a beginner-friendly course on **prompt engineering**. To make learning practical and fun, the course uses **IT incident triage & support** as the running use case.
+
+**Audience:** Anyone new to GenAI—students, educators, and working professionals.
+
 **Install:** **Not required.** These materials are for teaching and practice (examples, exercises, and homework). The optional HTML pages support in-class demos in a browser.
 
 ---
@@ -56,13 +58,14 @@ Use these as the four learning pillars for the course.
 
 ```
 
-**Important:** The HTML/JS files are **teaching aids** for live demos. Participants are **not** expected to install or deploy an application.
+**Important:** The src files are **teaching aids** for live demos. Participants are **not** expected to install or deploy an application.
 
 ---
 
 ## How to Use This Repo
 
-- **Learners:** Start with `/exercises` and follow your facilitator’s prompts. When used in class, the instructor may open the HTML pages directly in a browser to demonstrate ideas.  
+- **Learners:** Go to the [Online Training](https://ricebot.pythonanywhere.com/bcamp/) 
+ and follow each section’s step by step guide and exercises. Use the REPL only to access resources. In instructor led sessions, your facilitator will open the same HTML pages in a browser and guide you in real time.  
 - **Facilitators:** coming soon.  
 
 ---
