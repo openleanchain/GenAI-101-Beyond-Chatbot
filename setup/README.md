@@ -9,7 +9,7 @@
 - Install openai (do this at home via OPS VPN before Workshop #1):
   - Upgrade installers and install:
     - `python -m pip install --upgrade pip setuptools wheel`
-    - `python -m pip install openai`
+    - `python -m pip install -r requirements.txt`
   - Verify: `python check_openai.py
 
 - Configure VS Code for shared functionality:
@@ -20,4 +20,5 @@
 
 
 Note: Your org network may block installs. If you cannot install while on your org network, connect from home via the org VPN.
+
 
