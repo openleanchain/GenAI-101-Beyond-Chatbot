@@ -1,0 +1,22 @@
+{
+  "python.defaultInterpreterPath": ".venv\\Scripts\\python.exe",
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "autopep8",
+  "python.formatting.autopep8Args": ["--max-line-length=120"],
+  "editor.formatOnSave": true,
+  "python.envFile": "${workspaceFolder}/.env",
+  "python.analysis.extraPaths":["."],
+  "python.autoComplete.extraPaths": ["."],
+  "terminal.integrated.env.windows": {
+    "PYTHONPATH": "${workspaceFolder}"
+  },
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestArgs": [
+    "."
+  ]
+}
+
