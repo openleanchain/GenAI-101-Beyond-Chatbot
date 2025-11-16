@@ -1,6 +1,6 @@
 # Quick Start — Python Setup
 
-- Learn basics: open the example scripts in the test/ folder (coffee_store_basic.py and coffee_store_advanced.py) to see simple Python constructs (print, input, lists, dicts, loops, functions).
+- Learn basics: open the example scripts (coffee_store_basic.py and coffee_store_advanced.py) to see simple Python constructs (print, input, lists, dicts, loops, functions) if you are new to Python.
 
 - Test your Python environment:
   - Run: `python hello.py`
@@ -20,3 +20,4 @@
 
 
 Note: Your org network may block installs. If you cannot install while on your org network, connect from home via the org VPN.
+
