@@ -6,6 +6,7 @@ demo for:
 - Automatic tool invocation based on model decisions
 - Escalation tool triggered when severity = CRISIS
 - Cleaner separation of concerns
+- SIMPLIFIED: call model → tool_calls → run tools → show results → stop
 """
 
 import json
@@ -65,6 +66,7 @@ TOOLS = [
     }
 ]
 
+
 # -------------------------
 # Tool implementation functions
 # -------------------------
@@ -84,6 +86,8 @@ def escalate_crisis(summary: str, severity: str, actions: List[str]) -> Dict[str
         "",
         "Required Actions:",
     ]
+  
+    # loop through the actions list while also getting the index of each item
     for i, action in enumerate(actions, start=1):
         body_lines.append(f"  {i}. {action}")
     
@@ -109,16 +113,26 @@ def process_tool_call(tool_name: str, tool_input: Dict[str, Any]) -> str:
         )
     else:
         result = {"error": f"Unknown tool: {tool_name}"}
-    
+      
+    # Convert a Python object into a JSON string
     return json.dumps(result)
 
 
 # -------------------------
-# LLM interaction with function calling
+# LLM interaction with function calling (SIMPLIFIED)
 # -------------------------
 
-def call_triage_llm_with_tools(description: str, temperature: float, max_tokens: int) -> Dict[str, Any]:
-    """Call LLM with function calling enabled."""
+def call_triage_llm_with_tools(description: str,
+                               temperature: float,
+                               max_tokens: int) -> Dict[str, Any]:
+    """
+    Call LLM with function calling enabled.
+
+    SIMPLIFIED for teaching:
+    - Single call to LLM
+    - If a tool is called, execute it once
+    - Collect summary, severity, actions + ticket info
+    """
     messages = [
         {
             "role": "system",
@@ -138,76 +152,42 @@ def call_triage_llm_with_tools(description: str, temperature: float, max_tokens:
         }
     ]
     
-    # First API call with tool definitions
     try:
         response = client.chat.completions.create(
             model=DEPLOYMENT_NAME,
             messages=messages,
             tools=TOOLS,
             tool_choice="auto",  # Let model decide when to use tools
-            temperature=temperature,
-            max_tokens=max_tokens,
+            temperature=DEFAULT_TEMPERATURE,
+            max_tokens=DEFAULT_MAX_TOKENS,
         )
     except Exception as e:
         print(f"\n[ERROR] Failed to call OpenAI API: {e}")
         sys.exit(1)
     
-    # Process tool calls in a loop until no more tools are called
-    result_data = {}
-    
-    while response.choices[0].message.tool_calls:
-        tool_calls = response.choices[0].message.tool_calls
-        
-        # Add assistant response to messages
-        messages.append({
-            "role": "assistant",
-            "content": response.choices[0].message.content or "",
-            "tool_calls": [
-                {
-                    "id": tc.id,
-                    "type": "function",
-                    "function": {
-                        "name": tc.function.name,
-                        "arguments": tc.function.arguments
-                    }
-                }
-                for tc in tool_calls
-            ]
-        })
-        
-        # Process each tool call
-        for tool_call in tool_calls:
-            tool_name = tool_call.function.name
-            tool_input = json.loads(tool_call.function.arguments)
-            
-            print(f"\n[CALLING] {tool_name}")
-            tool_result = process_tool_call(tool_name, tool_input)
-            
-            # Add tool result as separate message
-            messages.append({
-                "role": "tool",
-                "tool_call_id": tool_call.id,
-                "content": tool_result
-            })
-            
-            # Store result data
-            if tool_name == "escalate_crisis":
-                result_data["escalated"] = json.loads(tool_result)
-                result_data["ticket_id"] = tool_input.get("ticket_id")
-        
-        # Call LLM again to continue the conversation
-        try:
-            response = client.chat.completions.create(
-                model=DEPLOYMENT_NAME,
-                messages=messages,
-                tools=TOOLS,
-                tool_choice="auto",
-                temperature=temperature,
-                max_tokens=max_tokens,
-            )
-        except Exception as e:
-            print(f"\n[ERROR] Failed in tool call loop: {e}")
-            break
+    msg = response.choices[0].message
+    result_data: Dict[str, Any] = {}
+
+    # For teaching: we assume the model always calls our tool once
+    if msg.tool_calls:
+        tool_call = msg.tool_calls[0]  # Take the first tool in the list
+        tool_name = tool_call.function.name  # get the tool name the model wants to call.
+        tool_input = json.loads(tool_call.function.arguments)  # convert JSON string into Python dict
+
+        print(f"\n[CALLING] {tool_name}")
+        tool_result_json = process_tool_call(tool_name, tool_input)
+        tool_result = json.loads(tool_result_json)
+
+        # Fill result_data in a simple, explicit way for teaching
+        result_data["summary"] = tool_input.get("summary", "")
+        result_data["severity"] = tool_input.get("severity", "")
+        result_data["actions"] = tool_input.get("actions", [])
+        result_data["escalated"] = tool_result
+        result_data["ticket_id"] = tool_result.get("ticket_id")
+
+    else:
+        # If, for some reason, no tool was called, we just store the model's text
+        result_data["message"] = msg.content or "(no tool call, text response only)"
     
     return result_data
 
@@ -216,9 +196,12 @@ def call_triage_llm_with_tools(description: str, temperature: float, max_tokens:
 # Workflow
 # -------------------------
 
-def run_workflow_with_function_calling(description: str, temperature: float, max_tokens: int) -> None:
+def run_workflow_with_function_calling(description: str,
+                                       temperature: float,
+                                       max_tokens: int) -> None:
     """End-to-end workflow using function calling."""
     print("\n=== Calling LLM with Function Calling ===")
+    print(f"(Using temperature={temperature}, max_tokens={max_tokens})")
     data = call_triage_llm_with_tools(description, temperature, max_tokens)
     
     print("\n=== Workflow Results ===")
@@ -231,7 +214,7 @@ def run_workflow_with_function_calling(description: str, temperature: float, max
     if data.get("escalated"):
         print(f"\n✓ Crisis escalated - Ticket: {data.get('ticket_id')}")
     else:
-        print("\nIncident triaged and logged.")
+        print("\nIncident triaged and logged (no escalation tool used).")
     
     print("\n=== Workflow Complete ===")
 
@@ -244,29 +227,13 @@ def main() -> None:
     print("=== Incident Triage with Function Calling ===")
     print("This demo uses:")
     print("- LLM function calling (tool_choice)")
-    print("- Automatic tool invocation")
+    print("- Automatic tool invocation (single step, teaching version)")
     print("- Crisis escalation tool triggered on CRISIS severity\n")
 
     description = input("Describe the incident: ").strip()
     if not description:
         print("No description provided. Exiting.")
         return
-
-    # Temperature
-    temp_str = input(f"Temperature (default {DEFAULT_TEMPERATURE}): ").strip()
-    try:
-        temperature = float(temp_str) if temp_str else DEFAULT_TEMPERATURE
-    except ValueError:
-        print(f"Invalid temperature, using default {DEFAULT_TEMPERATURE}.")
-        temperature = DEFAULT_TEMPERATURE
-
-    # Max tokens
-    max_tokens_str = input(f"Max tokens (default {DEFAULT_MAX_TOKENS}): ").strip()
-    try:
-        max_tokens = int(max_tokens_str) if max_tokens_str else DEFAULT_MAX_TOKENS
-    except ValueError:
-        print(f"Invalid max tokens, using default {DEFAULT_MAX_TOKENS}.")
-        max_tokens = DEFAULT_MAX_TOKENS
 
     run_workflow_with_function_calling(description, temperature, max_tokens)
 
