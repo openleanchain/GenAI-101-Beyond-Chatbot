@@ -34,17 +34,7 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 4. Inside the unzipped project, locate the folder named **setup**.  
 5. Copy **everything inside the setup folder** into your workspace folder in VS Code.
 
-## Step 4: Obtain the Common Folder and `.env` File
-Your team lead will share:
-- The **common** folder  
-- The **.env** file (contains API keys and credentials)
-
-⚠️ You **must** sign the consent form before receiving the `.env` file.  
-This ensures that all credentials are used responsibly and stored securely.
-
-Place the `.env` file inside your workspace folder.
-
-## Step 5: Install Required Python Libraries
+## Step 4: Install Required Python Libraries
 1. Open **Terminal** → **New Terminal** in VS Code.  
 2. Ensure that the terminal shows your virtual environment as activated (you will see `(venv)` or similar).  
 3. Run the following command:
@@ -58,6 +48,17 @@ This installs all dependencies required for the shared components and for your p
 ---
 
 You are now fully set up and ready to run Python scripts in VS Code using the shared components!
+
+## Step 5: Obtain the Common Folder and `.env` File
+Your team lead will share:
+- The **common** folder  
+- The **.env** file (contains API keys and credentials)
+
+⚠️ You **must** sign the consent form before receiving the `.env` file.  
+This ensures that all credentials are used responsibly and stored securely.
+
+Place the `.env` file inside your workspace folder.
+
 
 
 
