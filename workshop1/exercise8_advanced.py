@@ -6,7 +6,7 @@ demo for:
 - Automatic tool invocation based on model decisions
 - Escalation tool triggered when severity = CRISIS
 - Cleaner separation of concerns
-- call model → tool_calls → run tools → send results back → call model again…
+- Call model → get tool_calls → run tools → send tool results back → call model again → (repeat while there are tool calls)
 """
 
 import json
