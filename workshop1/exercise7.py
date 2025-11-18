@@ -30,7 +30,7 @@ DEFAULT_TEMPERATURE = 0.2
 DEFAULT_MAX_TOKENS = 200
 
 # Toggle: if False, email is only simulated (printed to console)
-USE_REAL_EMAIL = True  # False
+USE_REAL_EMAIL = False  # True  False
 
 # Initialize Azure OpenAI client (with credentials) — reusable, credentialed handle
 client = AzureOpenAI(**get_api_credentials())
@@ -306,4 +306,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
   
