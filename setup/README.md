@@ -20,6 +20,11 @@ This prevents your local virtual environment and credentials from being uploaded
 ### To verify that your local virtual environment is set up correctly:
 - Open a **new terminal** by clicking the Terminal menu on the top bar.
 - Check the terminal prompt. If your environment is activated, you should see **(.venv) PS C:\Users\xxx** at the beginning of the prompt.
+- If you encounter a local script restriction error, run the following command in your terminal:
+```
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
 
 ## Step 3: Download and Copy the Setup Folder
 1. Go to the GitHub link provided by your team.  
@@ -52,5 +57,6 @@ This installs all dependencies required for the shared components and for your p
 ---
 
 You are now fully set up and ready to run Python scripts in VS Code using the shared components!
+
 
 
