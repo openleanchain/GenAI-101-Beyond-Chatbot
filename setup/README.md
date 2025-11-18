@@ -11,7 +11,8 @@ If you don't have one yet, create a new folder and open it in VS Code.
 2. Search for **Python: Create Environment**.  
 3. Select **Virtual Environment** (do NOT choose Conda).  
 4. When the setup completes, you should see a `.venv` folder in your workspace.  
-5. Open your `.gitignore` file and add the following line:  
+5. Open your `.gitignore` file and add the following line:
+   - If you don’t see a `.gitignore` file inside your `.venv` folder, copy the one from the `setup` folder in your downloaded zip file.
 ```
 .venv
 .env
@@ -57,6 +58,7 @@ This installs all dependencies required for the shared components and for your p
 ---
 
 You are now fully set up and ready to run Python scripts in VS Code using the shared components!
+
 
 
 
