@@ -51,10 +51,9 @@ Use these as the four learning pillars for the course.
 ## Repository Structure
 
 ```
-/docs                 # Facilitator notes, pacing guides, answer keys (grows over time)
-/exercises            # In‑class tasks and mini‑projects
-/homework             # Short homework prompts & instructions
-/src                  # Small, self‑contained code snippets used in demos/examples
+/setup                # Setup Python environment in VS Code
+/webapp               # Flask web app baseline
+/workshop1            # In-class exercises
 
 ```
 
