@@ -160,6 +160,7 @@ def call_triage_llm_with_tools(description: str, temperature: float, max_tokens:
         tool_calls = response.choices[0].message.tool_calls
         
         # Add assistant response to messages
+        # Build a list of dictionaries, one dictionary for each tc in tool_calls
         messages.append({
             "role": "assistant",
             "content": response.choices[0].message.content or "",
