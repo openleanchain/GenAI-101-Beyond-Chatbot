@@ -60,6 +60,8 @@ This ensures that all credentials are used responsibly and stored securely.
 Place the `.env` file inside your workspace folder.
 
 
+## Step 6: Test your credentials.
+Follow your team lead’s instructions to run both check_openai.py and check_credential.py.
 
 
 
