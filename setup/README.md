@@ -1,24 +1,52 @@
-# Quick Start — Python Setup
+# Setting Up Your Python Environment in VS Code
 
-- Learn basics: open the example scripts (coffee_store_basic.py and coffee_store_advanced.py) to see simple Python constructs (print, input, lists, dicts, loops, functions) if you are new to Python.
+This guide will walk you through the full setup process step-by-step.
 
-- Test your Python environment:
-  - Run: `python hello.py`
-  - If it prints the hello message, your Python env is working.
+## Step 1: Create or Open Your Workspace Folder
+Open Visual Studio Code and make sure you have a dedicated top-level folder for your project.  
+If you don't have one yet, create a new folder and open it in VS Code.
 
-- Install openai (do this at home via OPS VPN before Workshop #1):
-  - Upgrade installers and install:
-    - `python -m pip install --upgrade pip setuptools wheel`
-    - `python -m pip install -r requirements.txt`
-  - Verify: `python check_openai.py
+## Step 2: Set Up a Python Virtual Environment
+1. Press **Ctrl+Shift+P** (or Cmd+Shift+P on Mac) to open the Command Palette.  
+2. Search for **Python: Create Environment**.  
+3. Select **Virtual Environment** (do NOT choose Conda).  
+4. When the setup completes, you should see a `.venv` folder in your workspace.  
+5. Open your `.gitignore` file and add the following line:  
+```
+.venv
+.env
+```
+This prevents your local virtual environment and credentials from being uploaded to GitHub.
 
-- Configure VS Code for shared functionality:
-  - Create a `.vscode` folder at the root of the bootcamp project (if it doesn't exist): `mkdir .vscode`
-  - Copy `launch.json` and `settings.json` into the `.vscode` folder from the shared configuration
-  - These files enable common debugging and editor settings across all subfolders (test/, assignments/, etc.)
-  - Restart VS Code to apply the settings
+## Step 3: Download and Copy the Setup Folder
+1. Go to the GitHub link provided by your team.  
+2. Download the repository as a **ZIP file**.  
+3. Unzip it on your computer.  
+4. Inside the unzipped project, locate the folder named **setup**.  
+5. Copy **everything inside the setup folder** into your workspace folder in VS Code.
 
+## Step 4: Obtain the Common Folder and `.env` File
+Your team lead will share:
+- The **common** folder  
+- The **.env** file (contains API keys and credentials)
 
-Note: Your org network may block installs. If you cannot install while on your org network, connect from home via the org VPN.
+⚠️ You **must** sign the consent form before receiving the `.env` file.  
+This ensures that all credentials are used responsibly and stored securely.
 
+Place the `.env` file inside your workspace folder.
+
+## Step 5: Install Required Python Libraries
+1. Open **Terminal** → **New Terminal** in VS Code.  
+2. Ensure that the terminal shows your virtual environment as activated (you will see `(venv)` or similar).  
+3. Run the following command:
+
+```
+pip install -r requirements.txt
+```
+
+This installs all dependencies required for the shared components and for your project to run correctly.
+
+---
+
+You are now fully set up and ready to run Python scripts in VS Code using the shared components!
 
