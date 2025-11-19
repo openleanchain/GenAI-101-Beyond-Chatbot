@@ -33,3 +33,6 @@ result = response.choices[0].message.content
 
 print(f"User: {user_problem}")
 print(f"AI: {result}")
+print(response.usage)  # shows token usage information
+
+
