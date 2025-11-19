@@ -44,6 +44,7 @@ pip install -r requirements.txt
 ```
 
 This installs all dependencies required for the shared components and for your project to run correctly.
+If you encounter **global protection** issue, you may change wwitch your Global Protect gateway to other region if your organization allows.
 
 ---
 
@@ -62,6 +63,7 @@ Place the `.env` file inside your workspace folder.
 
 ## Step 6: Test your credentials.
 Follow your team lead’s instructions to run both check_openai.py and check_credential.py.
+
 
 
 
