@@ -17,6 +17,7 @@ import sys
 import uuid
 from typing import List, Dict, Any
 import requests
+import json
 from openai import AzureOpenAI
 from common.bc_config import get_api_credentials, get_model_deployment_name, get_email_receiver, get_email_api_info
 
@@ -191,9 +192,10 @@ def _send_real_email(subject: str, body: str) -> None:
     """
     API_URL, API_KEY = get_email_api_info()
     print(f"[EMAIL] Sending real email to: {API_URL}")
+    email_receiver = json.loads(get_email_receiver())
 
     payload = {
-        "to": get_email_receiver(),
+        "to": email_receiver,
         "subject": subject,
         "body": body
     }
@@ -308,3 +310,4 @@ if __name__ == "__main__":
     main()
 
   
+
