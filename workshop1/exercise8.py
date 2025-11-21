@@ -23,7 +23,7 @@ from common.bc_config import get_api_credentials, get_model_deployment_name
 
 DEPLOYMENT_NAME = get_model_deployment_name()
 
-DEFAULT_TEMPERATURE = 0.2
+DEFAULT_TEMPERATURE = 0.1
 DEFAULT_MAX_TOKENS = 500
 
 USE_REAL_EMAIL = False
@@ -235,8 +235,9 @@ def main() -> None:
         print("No description provided. Exiting.")
         return
 
-    run_workflow_with_function_calling(description, temperature, max_tokens)
+    run_workflow_with_function_calling(description, DEFAULT_TEMPERATURE, DEFAULT_MAX_TOKENS)
 
 
 if __name__ == "__main__":
     main()
+
